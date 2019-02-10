@@ -19,6 +19,9 @@ git_email=${GIT_EMAIL:-noreply@seqsense.com}
 
 git_common_opt="-C aports"
 
+
+# Prepare aports repository
+
 if [ -d aports ]; then
   git ${git_common_opt} pull upstream master
 else
@@ -32,6 +35,9 @@ fi
 
 mkdir -p aports/ros/${ros_distro}
 
+
+# Generate all APKBUILDs
+
 package_list_full=''
 rosinstall_generator --deps --wet-only --flat ${package_list} --rosdistro ${ros_distro} \
   | grep 'local-name:' | while read line; do
@@ -42,6 +48,9 @@ rosinstall_generator --deps --wet-only --flat ${package_list} --rosdistro ${ros_
   fi
 done \
   | xargs -t -n1 -P${parallel} ./generate.sh ${ros_distro}
+
+
+# Commit changes and create PullRequest
 
 git ${git_common_opt} add ros
 if git ${git_common_opt} diff --cached --exit-code; then
