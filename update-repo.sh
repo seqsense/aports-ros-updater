@@ -2,6 +2,13 @@
 
 set -e
 
+dry_run='false'
+while getopts d opt; do
+  case ${opt} in
+    "d" ) dry_run='true' ; echo '[dry-run]';;
+  esac
+done
+
 # env vars:
 #   APORTS_SLUG_UPSTREAM
 #   APORTS_SULG
@@ -74,8 +81,12 @@ EOF
   echo ${pr_request_body}
   sleep 2
 
-  git ${git_common_opt} push origin auto-update/${date}
-  sleep 2
-  curl https://api.github.com/repos/${aports_slug_upstream}/pulls \
-    -d "${pr_request_body}" -XPOST -n
+  if [ ${dry_run} == 'false' ]; then
+    git ${git_common_opt} push origin auto-update/${date}
+    sleep 2
+    curl https://api.github.com/repos/${aports_slug_upstream}/pulls \
+      -d "${pr_request_body}" -XPOST -n
+  else
+    echo 'Skipping PR'
+  fi
 fi
