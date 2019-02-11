@@ -1,0 +1,32 @@
+sudo: required
+services: docker
+language: bash
+
+cache:
+  directories:
+    - ${HOME}/.local/bin
+    - ${HOME}/.local/lib
+
+branches:
+  only:
+    - master
+
+before_install:
+  - pip install --upgrade --user awscli gh-pr-comment
+
+install:
+  - make build-updater
+  - |
+    echo machine github.com > ${HOME}/.netrc \
+    && echo login sqbot >> ${HOME}/.netrc \
+    && echo password ${TRAVIS_BOT_GITHUB_TOKEN} >> ${HOME}/.netrc
+
+script:
+  - make kinetic-dry
+
+deploy:
+  provider: script
+  skip_cleanup: true
+  script: make kinetic
+  on:
+    branch: master
