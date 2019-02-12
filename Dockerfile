@@ -8,6 +8,10 @@ RUN apk add --no-cache python3 py3-pip py3-yaml git curl findutils \
     git+https://github.com/alpine-ros/ros-abuild-docker.git \
     rosinstall_generator
 
+RUN rosdep init \
+  && sed -i -e 's/ros\/rosdistro\/master/at-wat\/rosdistro\/alpine-custom-apk/' \
+    /etc/ros/rosdep/sources.list.d/20-default.list
+
 ENV HOME="/root"
 
 ENV APORTS_SLUG_UPSTREAM="seqsense/aports-ros-experimental"

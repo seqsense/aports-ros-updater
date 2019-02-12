@@ -45,6 +45,8 @@ mkdir -p aports/ros/${ros_distro}
 
 # Generate all APKBUILDs
 
+rosdep update
+
 package_list_full=''
 rosinstall_generator --deps --wet-only --flat ${package_list} --rosdistro ${ros_distro} \
   | grep 'local-name:' | while read line; do
