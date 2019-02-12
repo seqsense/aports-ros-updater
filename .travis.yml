@@ -19,6 +19,9 @@ install:
   - |
     echo machine github.com > ${HOME}/.netrc \
     && echo login sqbot >> ${HOME}/.netrc \
+    && echo password ${TRAVIS_BOT_GITHUB_TOKEN} >> ${HOME}/.netrc \
+    && echo machine api.github.com >> ${HOME}/.netrc \
+    && echo login sqbot >> ${HOME}/.netrc \
     && echo password ${TRAVIS_BOT_GITHUB_TOKEN} >> ${HOME}/.netrc
 
 script:
