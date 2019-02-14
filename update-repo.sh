@@ -43,6 +43,31 @@ fi
 mkdir -p aports/ros/${ros_distro}
 
 
+# Store rosdistro cache locally
+
+wget -q \
+  -O /rosdistro-cache.yaml.gz \
+  http://repositories.ros.org/rosdistro_cache/${ros_distro}-cache.yaml.gz
+wget -q \
+  -O /distribution.yaml \
+  https://raw.githubusercontent.com/ros/rosdistro/master/${ros_distro}/distribution.yaml
+cat << EOF > /index.yaml
+%YAML 1.1
+# ROS index file
+# see REP 143: http://ros.org/reps/rep-0143.html
+---
+distributions:
+  ${ros_distro}:
+    distribution: ["file:///distribution.yaml"]
+    distribution_cache: "file:///rosdistro-cache.yaml.gz"
+type: index
+version: 3
+EOF
+echo "Using local copy of rosdistro"
+cat /index.yaml
+export ROSDISTRO_INDEX_URL=file:///index.yaml
+
+
 # Generate all APKBUILDs
 
 rosdep update
