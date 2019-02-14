@@ -4,3 +4,11 @@ robot
 ros_base
 ros_core
 viz
+adi_driver
+joy
+rosserial
+urg_node
+urg_stamped
+usb_cam
+xsens_driver
+ypspur_ros
