@@ -78,10 +78,10 @@ rosinstall_generator --deps --wet-only --flat ${package_list} --rosdistro ${ros_
   pkgname=$(echo $line | sed -e 's/.*:\s*//')
   if [ ! -z $pkgname ]; then
     mkdir -p aports/ros/${ros_distro}/$pkgname
-    echo $pkgname
+    echo $pkgname aports/ros/${ros_distro}/$pkgname/APKBUILD
   fi
 done \
-  | xargs -t -n1 -P${parallel} ./generate.sh ${ros_distro}
+  | tee | generate-rospkg-apkbuild-multi ${ros_distro}
 
 
 # Commit changes and create PullRequest

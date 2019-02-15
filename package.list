@@ -1,4 +1,7 @@
 catkin
+mcl_3dl
+navigation
+neonavigation
 perception
 robot
 ros_base
