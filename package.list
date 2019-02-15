@@ -1,4 +1,6 @@
+adi_driver
 catkin
+joy
 mcl_3dl
 navigation
 neonavigation
@@ -6,12 +8,10 @@ perception
 robot
 ros_base
 ros_core
-viz
-adi_driver
-joy
 rosserial
 urg_node
 urg_stamped
 usb_cam
+viz
 xsens_driver
 ypspur_ros
