@@ -22,7 +22,6 @@ ENV PARALLEL="4"
 ENV GIT_EMAIL="noreply@seqsense.com"
 
 COPY update-repo.sh /
-COPY generate.sh /
 COPY package.list /
 
 ENTRYPOINT ["/update-repo.sh"]
