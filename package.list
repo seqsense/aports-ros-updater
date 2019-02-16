@@ -1,4 +1,5 @@
 adi_driver
+audio_common
 catkin
 joy
 mcl_3dl
