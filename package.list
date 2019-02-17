@@ -1,7 +1,5 @@
 adi_driver
-audio_capture
-audio_common_msgs
-audio_play
+audio_common
 catkin
 joy
 mcl_3dl
