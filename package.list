@@ -10,6 +10,7 @@ perception
 robot
 ros_base
 ros_core
+rosbridge_suite
 rosserial
 urg_node
 urg_stamped
