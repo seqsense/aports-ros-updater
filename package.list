@@ -6,6 +6,8 @@ joy
 mcl_3dl
 navigation
 neonavigation
+neonavigation_msgs
+neonavigation_rviz_plugins
 perception
 robot
 ros_base
