@@ -12,6 +12,7 @@ perception
 robot
 ros_base
 ros_core
+ros_tutorials
 rosbridge_suite
 rosserial
 urg_node
