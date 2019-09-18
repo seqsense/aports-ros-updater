@@ -4,12 +4,12 @@ ARG ALPINE_VERSION=3.7
 
 RUN apk add --no-cache python3 py3-pip py3-yaml git curl findutils \
   && pip3 install \
-    git+https://github.com/at-wat/rosdep.git@alpine-installer \
+    git+https://github.com/ros-infrastructure/rosdep.git \
     git+https://github.com/alpine-ros/ros-abuild-docker.git \
     rosinstall_generator
 
 RUN rosdep init \
-  && sed -i -e 's/ros\/rosdistro\/master/at-wat\/rosdistro\/alpine-custom-apk/' \
+  && sed -i -e 's/ros\/rosdistro\/master/alpine-ros\/rosdistro\/alpine-custom-apk/' \
     /etc/ros/rosdep/sources.list.d/20-default.list
 
 ENV HOME="/root"

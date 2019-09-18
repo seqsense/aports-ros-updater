@@ -45,9 +45,11 @@ mkdir -p aports/ros/${ros_distro}
 
 # Store rosdistro cache locally
 
+echo "Get ${ros_distro}-cache.yaml.gz"
 wget -q \
   -O /rosdistro-cache.yaml.gz \
   http://repositories.ros.org/rosdistro_cache/${ros_distro}-cache.yaml.gz
+echo "Get distribution.yaml"
 wget -q \
   -O /distribution.yaml \
   https://raw.githubusercontent.com/ros/rosdistro/master/${ros_distro}/distribution.yaml

@@ -15,7 +15,6 @@ before_install:
   - pip install --upgrade --user awscli gh-pr-comment
 
 install:
-  - make build-updater
   - |
     echo machine github.com > ${HOME}/.netrc \
     && echo login sqbot >> ${HOME}/.netrc \
@@ -25,11 +24,12 @@ install:
     && echo password ${TRAVIS_BOT_GITHUB_TOKEN} >> ${HOME}/.netrc
 
 script:
-  - make kinetic-dry
+  - make 3.7.kinetic OPTIONS=-d
+  - make 3.9.melodic OPTIONS=-d
 
 deploy:
   provider: script
   skip_cleanup: true
-  script: make kinetic
+  script: make 3.7.kinetic 3.9.melodic
   on:
     branch: master

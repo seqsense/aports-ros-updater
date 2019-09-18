@@ -1,19 +1,11 @@
 UPDATER_NAME            = aports-ros-updater
-ALPINE_VERSION         ?= 3.7
-ROS_DISTRO             ?= kinetic
+TARGETS                ?= 3.7.kinetic 3.9.melodic
+OPTIONS                 =
 
-.PHONY: build-updater
-build-updater:
-	docker build -t $(UPDATER_NAME):$(ALPINE_VERSION) .
-
-.PHONY: $(ROS_DISTRO)
-$(ROS_DISTRO):
+.PHONY: $(TARGETS)
+$(TARGETS):
+	docker build -t $(UPDATER_NAME):$(basename $@) .
 	docker run --rm -it \
 		-v ${HOME}/.netrc:/root/.netrc:ro \
-		$(UPDATER_NAME):$(ALPINE_VERSION)
-
-.PHONY: $(ROS_DISTRO)-dry
-$(ROS_DISTRO)-dry:
-	docker run --rm -it \
-		-v ${HOME}/.netrc:/root/.netrc:ro \
-		$(UPDATER_NAME):$(ALPINE_VERSION) -d
+		-e ROS_DISTRO=$(subst .,,$(suffix $@)) \
+		$(UPDATER_NAME):$(basename $@) $(OPTIONS)
