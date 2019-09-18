@@ -1,5 +1,5 @@
 UPDATER_NAME            = aports-ros-updater
-TARGETS                ?= 3.7.kinetic 3.9.melodic
+TARGETS                ?= 3.7.kinetic 3.8.melodic
 OPTIONS                 =
 
 .PHONY: $(TARGETS)
