@@ -12,8 +12,8 @@ branches:
     - master
 
 env:
-  - ROS_DISTRO=kinetic
-  - ROS_DISTRO=melodic
+  - ROS_DISTRO=kinetic ALPINE_VERSION=3.7
+  - ROS_DISTRO=melodic ALPINE_VERSION=3.8
 
 before_install:
   - pip install --upgrade --user awscli gh-pr-comment
