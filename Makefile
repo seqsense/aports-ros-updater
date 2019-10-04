@@ -4,7 +4,16 @@ ROS_DISTRO             ?= kinetic
 
 .PHONY: build-updater
 build-updater:
-	docker build -t $(UPDATER_NAME):$(ALPINE_VERSION) .
+	docker build -t $(UPDATER_NAME):$(ALPINE_VERSION) \
+		--build-arg ROS_DISTRO \
+		--build-arg ALPINE_VERSION \
+		.
+
+.PHONY: run
+run: $(ROS_DISTRO)
+
+.PHONY: dry-run
+dry-run: $(ROS_DISTRO)-dry
 
 .PHONY: $(ROS_DISTRO)
 $(ROS_DISTRO):

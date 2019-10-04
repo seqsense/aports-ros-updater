@@ -14,10 +14,12 @@ RUN rosdep init \
 
 ENV HOME="/root"
 
+ARG ROS_DISTRO="kinetic"
+
 ENV APORTS_SLUG_UPSTREAM="seqsense/aports-ros-experimental"
 ENV APORTS_SULG="seqsense/aports-ros-experimental"
 ENV PACKAGE_LIST="package.list"
-ENV ROS_DISTRO="kinetic"
+ENV ROS_DISTRO=${ROS_DISTRO}
 ENV PARALLEL="4"
 ENV GIT_EMAIL="noreply@seqsense.com"
 
