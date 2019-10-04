@@ -11,6 +11,10 @@ branches:
   only:
     - master
 
+env:
+  - ROS_DISTRO=kinetic
+  - ROS_DISTRO=melodic
+
 before_install:
   - pip install --upgrade --user awscli gh-pr-comment
 
@@ -25,11 +29,11 @@ install:
     && echo password ${TRAVIS_BOT_GITHUB_TOKEN} >> ${HOME}/.netrc
 
 script:
-  - make kinetic-dry
+  - make dry-run
 
 deploy:
   provider: script
   skip_cleanup: true
-  script: make kinetic
+  script: make run
   on:
     branch: master
