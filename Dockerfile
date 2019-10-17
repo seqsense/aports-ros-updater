@@ -9,7 +9,7 @@ RUN apk add --no-cache python3 py3-pip py3-yaml git curl findutils \
     rosinstall_generator
 
 RUN rosdep init \
-  && sed -i -e 's|ros/rosdistro/master|alpine-ros/rosdistro/add-python3-deps|' \
+  && sed -i -e 's|ros/rosdistro/master|alpine-ros/rosdistro/alpine-custom-apk|' \
     /etc/ros/rosdep/sources.list.d/20-default.list
 
 ENV HOME="/root"
