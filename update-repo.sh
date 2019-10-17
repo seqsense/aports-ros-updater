@@ -21,11 +21,17 @@ aports_slug_upstream=${APORTS_SLUG_UPSTREAM:-seqsense/aports-ros-experimental}
 aports_slug=${APORTS_SLUG:-${aports_slug_upstream}}
 package_list=$(cat ${PACKAGE_LIST:-package.list})
 ros_distro=${ROS_DISTRO:-kinetic}
+ros_python_version=${ROS_PYTHON_VERSION:-2}
 parallel=${PARALLEL:-4}
 git_email=${GIT_EMAIL:-noreply@seqsense.com}
 
 git_common_opt="-C aports"
 
+case ${ros_python_version} in
+  "2" ) aports_dir=aports/ros/${ros_distro};;
+  "3" ) aports_dir=aports/ros-py3/${ros_distro};;
+  * ) echo "Unknown ROS_PYTHON_VERSION ${ros_python_version}" >&2; exit 1;;
+esac
 
 # Prepare aports repository
 
@@ -40,7 +46,7 @@ else
   git ${git_common_opt} config user.email "${git_email}"
 fi
 
-mkdir -p aports/ros/${ros_distro}
+mkdir -p ${aports_dir}
 
 
 # Store rosdistro cache locally
@@ -77,8 +83,8 @@ rosinstall_generator --deps --wet-only --flat ${package_list} --rosdistro ${ros_
   | grep 'local-name:' | while read line; do
   pkgname=$(echo $line | sed -e 's/.*:\s*//')
   if [ ! -z $pkgname ]; then
-    mkdir -p aports/ros/${ros_distro}/$pkgname
-    echo $pkgname aports/ros/${ros_distro}/$pkgname/APKBUILD
+    mkdir -p ${aports_dir}/$pkgname
+    echo $pkgname ${aports_dir}/$pkgname/APKBUILD
   fi
 done \
   | tee | generate-rospkg-apkbuild-multi ${ros_distro}
