@@ -92,7 +92,7 @@ done \
 
 # Commit changes and create PullRequest
 
-git ${git_common_opt} add ros
+git ${git_common_opt} add ros ros-py3
 if git ${git_common_opt} diff --cached --exit-code; then
   echo "No update found"
 else
