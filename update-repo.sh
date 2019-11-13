@@ -28,12 +28,11 @@ git_email=${GIT_EMAIL:-noreply@seqsense.com}
 git_common_opt="-C aports"
 
 
-aports_dir_py2=aports/ros/${ros_distro}
-aports_dir_py3=aports/ros-py3/${ros_distro}
+aports_dir=aports/ros/${ros_distro}
 
 case ${ros_python_version} in
-  "2" ) aports_dir=${aports_dir_py2};;
-  "3" ) aports_dir=${aports_dir_py3};;
+  "2" ) ;;
+  "3" ) ;;
   * ) echo "Unknown ROS_PYTHON_VERSION ${ros_python_version}" >&2; exit 1;;
 esac
 
@@ -51,7 +50,7 @@ else
   git ${git_common_opt} config user.email "${git_email}"
 fi
 
-mkdir -p ${aports_dir_py2} ${aports_dir_py3}
+mkdir -p ${aports_dir}
 
 
 # Store rosdistro cache locally
@@ -98,7 +97,7 @@ done \
 
 # Commit changes and create PullRequest
 
-git ${git_common_opt} add ros ros-py3
+git ${git_common_opt} add ros
 if git ${git_common_opt} diff --cached --exit-code; then
   echo "No update found"
 else
