@@ -22,6 +22,7 @@ ENV PACKAGE_LIST="package.list"
 ENV ROS_DISTRO=${ROS_DISTRO}
 ENV PARALLEL="4"
 ENV GIT_EMAIL="noreply@seqsense.com"
+ENV ROS_PYTHON_VERSION="2"
 
 COPY update-repo.sh /
 COPY package.list /

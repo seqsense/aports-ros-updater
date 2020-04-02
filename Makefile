@@ -1,6 +1,7 @@
 UPDATER_NAME            = aports-ros-updater
 ALPINE_VERSION         ?= 3.7
 ROS_DISTRO             ?= kinetic
+ROS_PYTHON_VERSION     ?= 2
 
 .PHONY: build-updater
 build-updater:
@@ -19,10 +20,12 @@ dry-run: $(ROS_DISTRO)-dry
 $(ROS_DISTRO):
 	docker run --rm -it \
 		-v ${HOME}/.netrc:/root/.netrc:ro \
+		-e ROS_PYTHON_VERSION=$(ROS_PYTHON_VERSION) \
 		$(UPDATER_NAME):$(ALPINE_VERSION)
 
 .PHONY: $(ROS_DISTRO)-dry
 $(ROS_DISTRO)-dry:
 	docker run --rm -it \
 		-v ${HOME}/.netrc:/root/.netrc:ro \
+		-e ROS_PYTHON_VERSION=$(ROS_PYTHON_VERSION) \
 		$(UPDATER_NAME):$(ALPINE_VERSION) -d
