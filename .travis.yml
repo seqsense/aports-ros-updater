@@ -14,6 +14,7 @@ branches:
 env:
   - ROS_DISTRO=kinetic ALPINE_VERSION=3.7 ROS_PYTHON_VERSION=2
   - ROS_DISTRO=melodic ALPINE_VERSION=3.8 ROS_PYTHON_VERSION=2
+  - ROS_DISTRO=noetic ALPINE_VERSION=3.11 ROS_PYTHON_VERSION=3 PACKAGE_LIST=package.list.noetic
 
 before_install:
   - pip install --upgrade --user awscli gh-pr-comment
@@ -22,11 +23,9 @@ install:
   - make build-updater
   - |
     echo machine github.com > ${HOME}/.netrc \
-    && echo login sqbot >> ${HOME}/.netrc \
-    && echo password ${TRAVIS_BOT_GITHUB_TOKEN} >> ${HOME}/.netrc \
+    && echo login ${TRAVIS_BOT_GITHUB_TOKEN} >> ${HOME}/.netrc \
     && echo machine api.github.com >> ${HOME}/.netrc \
-    && echo login sqbot >> ${HOME}/.netrc \
-    && echo password ${TRAVIS_BOT_GITHUB_TOKEN} >> ${HOME}/.netrc
+    && echo login ${TRAVIS_BOT_GITHUB_TOKEN} >> ${HOME}/.netrc
 
 script:
   - make dry-run
