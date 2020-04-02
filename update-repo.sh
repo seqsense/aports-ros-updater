@@ -103,13 +103,13 @@ if git ${git_common_opt} diff --cached --exit-code; then
 else
   date=$(date +%Y%m%d-%H%M%S)
   git ${git_common_opt} checkout -b auto-update/${date}
-  git ${git_common_opt} commit -m "Automatic update on ${date}" \
+  git ${git_common_opt} commit -m "${ros_distro}: automatic update on ${date}" \
     --author="Alpine ROS aports update bot <${git_email}>"
 
   pr_user=$(dirname ${aports_slug})
   pr_request_body=$(cat << EOF
 {
-  "title": "Automatic update on ${date}",
+  "title": "${ros_distro}: automatic update on ${date}",
   "body": "Updates found in rosdistro",
   "head": "${pr_user}:auto-update\/${date}",
   "base": "master"
