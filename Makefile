@@ -6,8 +6,8 @@ ROS_PYTHON_VERSION     ?= 2
 .PHONY: build-updater
 build-updater:
 	docker build -t $(UPDATER_NAME):$(ALPINE_VERSION) \
-		--build-arg ROS_DISTRO \
-		--build-arg ALPINE_VERSION \
+		--build-arg ROS_DISTRO=$(ROS_DISTRO) \
+		--build-arg ALPINE_VERSION=$(ALPINE_VERSION) \
 		.
 
 .PHONY: run
