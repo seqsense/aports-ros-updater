@@ -25,6 +25,6 @@ ENV GIT_EMAIL="noreply@seqsense.com"
 ENV ROS_PYTHON_VERSION="2"
 
 COPY update-repo.sh /
-COPY package.list /
+COPY package.list* /
 
 ENTRYPOINT ["/update-repo.sh"]
