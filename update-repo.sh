@@ -103,7 +103,7 @@ done \
 
 # Commit changes and create PullRequest
 
-files="$(git diff --name-only | sed 's/^/- /;s/$/\\\\n/g' | tr -d '\n')"
+files="$(git ${git_common_opt} diff --name-only | sed 's/^/- /;s/$/\\\\n/g' | tr -d '\n')"
 
 git ${git_common_opt} add ros
 if git ${git_common_opt} diff --cached --exit-code; then
