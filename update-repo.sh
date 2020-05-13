@@ -103,12 +103,14 @@ done \
 
 # Commit changes and create PullRequest
 
+files="$(git diff --name-only | sed 's/^/- /;s/$/\\\\n/g' | tr -d '\n')"
+
 git ${git_common_opt} add ros
 if git ${git_common_opt} diff --cached --exit-code; then
   echo "No update found"
 else
   date=$(date +%Y%m%d-%H%M%S)
-  git ${git_common_opt} checkout -b auto-update/${date}
+  git ${git_common_opt} checkout -b auto-update/${ros_distro}/${date}
   git ${git_common_opt} commit -m "${ros_distro}: automatic update on ${date}" \
     --author="Alpine ROS aports update bot <${git_email}>"
 
@@ -116,8 +118,8 @@ else
   pr_request_body=$(cat << EOF
 {
   "title": "${ros_distro}: automatic update on ${date}",
-  "body": "Updates found in rosdistro",
-  "head": "${pr_user}:auto-update\/${date}",
+  "body": "Updates found in rosdistro\\\\n${files}",
+  "head": "${pr_user}:auto-update\/${ros_distro}\/${date}",
   "base": "master"
 }
 EOF
@@ -126,7 +128,7 @@ EOF
   sleep 2
 
   if [ ${dry_run} == 'false' ]; then
-    git ${git_common_opt} push origin auto-update/${date}
+    git ${git_common_opt} push origin auto-update/${ros_distro}/${date}
     sleep 2
     curl https://api.github.com/repos/${aports_slug_upstream}/pulls \
       -d "${pr_request_body}" -XPOST -n
