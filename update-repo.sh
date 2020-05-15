@@ -104,7 +104,7 @@ done \
 # Commit changes and create PullRequest
 
 files="$(git ${git_common_opt} diff --name-only \
-  | sed 's/^/- /;s|/|\\/|g;s/$/\\\\n/g' | tr -d '\n')"
+  | sed 's/^/- /;s|/|\\/|g;s/$/\\n/g' | tr -d '\n')"
 
 git ${git_common_opt} add ros
 if git ${git_common_opt} diff --cached --exit-code; then
@@ -119,7 +119,7 @@ else
   pr_request_body=$(cat << EOF
 {
   "title": "${ros_distro}: automatic update on ${date}",
-  "body": "Updates found in rosdistro\\\\n${files}",
+  "body": "Updates found in rosdistro\\n${files}",
   "head": "${pr_user}:auto-update\/${ros_distro}\/${date}",
   "base": "master"
 }
