@@ -2,6 +2,7 @@ adi_driver
 audio_common
 catkin
 executive_smach_visualization
+grid_map_ros
 imu_tools
 joy
 mcl_3dl
@@ -22,4 +23,3 @@ usb_cam
 viz
 xsens_driver
 ypspur_ros
-grid_map_ros
