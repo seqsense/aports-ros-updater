@@ -22,3 +22,4 @@ usb_cam
 viz
 xsens_driver
 ypspur_ros
+grid_map_ros
