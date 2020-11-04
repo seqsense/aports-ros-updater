@@ -1,0 +1,40 @@
+name: build
+on:
+  pull_request:
+    branches:
+      - master
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        env:
+          - ROS_DISTRO=kinetic ALPINE_VERSION=3.7 ROS_PYTHON_VERSION=2
+          - ROS_DISTRO=melodic ALPINE_VERSION=3.8 ROS_PYTHON_VERSION=2
+          - ROS_DISTRO=noetic ALPINE_VERSION=3.11 ROS_PYTHON_VERSION=3
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Setup
+        run: |
+          eval export ${{ matrix.env }}
+          make build-updater
+          echo machine github.com > ${HOME}/.netrc \
+            && echo login ${{ secrets.SQBOT_GITHUB_TOKEN }} >> ${HOME}/.netrc \
+            && echo machine api.github.com >> ${HOME}/.netrc \
+            && echo login ${{ secrets.SQBOT_GITHUB_TOKEN}} >> ${HOME}/.netrc
+
+      - name: Dry-run
+        run: |
+          eval export ${{ matrix.env }}
+          make dry-run
+
+      - name: Deploy
+        if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/master' }}
+        run: |
+          eval export ${{ matrix.env }}
+          make run
