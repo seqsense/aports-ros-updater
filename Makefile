@@ -18,14 +18,14 @@ dry-run: $(ROS_DISTRO)-dry
 
 .PHONY: $(ROS_DISTRO)
 $(ROS_DISTRO):
-	docker run --rm -it \
+	docker run --rm \
 		-v ${HOME}/.netrc:/root/.netrc:ro \
 		-e ROS_PYTHON_VERSION=$(ROS_PYTHON_VERSION) \
 		$(UPDATER_NAME):$(ALPINE_VERSION)
 
 .PHONY: $(ROS_DISTRO)-dry
 $(ROS_DISTRO)-dry:
-	docker run --rm -it \
+	docker run --rm \
 		-v ${HOME}/.netrc:/root/.netrc:ro \
 		-e ROS_PYTHON_VERSION=$(ROS_PYTHON_VERSION) \
 		$(UPDATER_NAME):$(ALPINE_VERSION) -d
