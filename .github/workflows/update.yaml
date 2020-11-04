@@ -6,6 +6,8 @@ on:
   push:
     branches:
       - master
+  schedule:
+    - cron:  '0 0 * * 1'  # Every monday UTC 0:00 (JST 9:00)
 
 jobs:
   build:
