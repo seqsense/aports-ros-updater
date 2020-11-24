@@ -92,10 +92,11 @@ package_list_full=''
 rosinstall_generator --deps --wet-only --flat ${package_list} --rosdistro ${ros_distro} \
   | grep 'local-name:' | while read line; do
   pkgname=$(echo $line | sed -e 's/.*:\s*//')
-  if [ ! -z $pkgname ]; then
-    mkdir -p ${aports_dir}/$pkgname
-    echo $pkgname ${aports_dir}/$pkgname/APKBUILD
-    echo $pkgname ${aports_dir}/$pkgname/APKBUILD >&2
+  if [ ! -z ${pkgname} ]; then
+    aportname=ros-${ros_distro}-$(echo ${pkgname} | sed 's/_/-/')
+    mkdir -p ${aports_dir}/${aportname}
+    echo $pkgname ${aports_dir}/${aportname}/APKBUILD
+    echo $pkgname ${aports_dir}/${aportname}/APKBUILD >&2
   fi
 done \
   | generate-rospkg-apkbuild-multi ${ros_distro}
