@@ -93,7 +93,7 @@ rosinstall_generator --deps --wet-only --flat ${package_list} --rosdistro ${ros_
   | grep 'local-name:' | while read line; do
   pkgname=$(echo $line | sed -e 's/.*:\s*//')
   if [ ! -z ${pkgname} ]; then
-    aportname=ros-${ros_distro}-$(echo ${pkgname} | sed 's/_/-/')
+    aportname=ros-${ros_distro}-$(echo ${pkgname} | sed 's/_/-/g')
     mkdir -p ${aports_dir}/${aportname}
     echo $pkgname ${aports_dir}/${aportname}/APKBUILD
     echo $pkgname ${aports_dir}/${aportname}/APKBUILD >&2
