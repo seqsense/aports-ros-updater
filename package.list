@@ -3,6 +3,7 @@ audio_common
 catkin
 executive_smach_visualization
 grid_map_ros
+ifm3d_core
 imu_tools
 joy
 mcl_3dl
