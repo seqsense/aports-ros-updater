@@ -19,7 +19,7 @@ done
 
 aports_slug_upstream=${APORTS_SLUG_UPSTREAM:-seqsense/aports-ros-experimental}
 aports_slug=${APORTS_SLUG:-${aports_slug_upstream}}
-ros_distro=${ROS_DISTRO:-kinetic}
+ros_distro=${ROS_DISTRO:-melodic}
 package_list=$(
   if [ -f package.list.${ros_distro} ]; then
     cat package.list.${ros_distro}

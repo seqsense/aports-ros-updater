@@ -1,6 +1,6 @@
-ARG ALPINE_VERSION=3.7
+ARG ALPINE_VERSION=3.8
 FROM alpine:${ALPINE_VERSION}
-ARG ALPINE_VERSION=3.7
+ARG ALPINE_VERSION=3.8
 
 RUN apk add --no-cache python3 py3-pip py3-yaml git curl findutils \
   && pip3 install \
@@ -14,7 +14,7 @@ RUN rosdep init \
 
 ENV HOME="/root"
 
-ARG ROS_DISTRO="kinetic"
+ARG ROS_DISTRO="melodic"
 
 ENV APORTS_SLUG_UPSTREAM="seqsense/aports-ros-experimental"
 ENV APORTS_SULG="seqsense/aports-ros-experimental"

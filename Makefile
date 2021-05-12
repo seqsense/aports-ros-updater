@@ -1,6 +1,6 @@
 UPDATER_NAME            = aports-ros-updater
-ALPINE_VERSION         ?= 3.7
-ROS_DISTRO             ?= kinetic
+ALPINE_VERSION         ?= 3.8
+ROS_DISTRO             ?= melodic
 ROS_PYTHON_VERSION     ?= 2
 
 .PHONY: build-updater
