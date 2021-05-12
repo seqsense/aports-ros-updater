@@ -26,18 +26,24 @@ jobs:
         run: |
           eval export ${{ matrix.env }}
           make build-updater
-          echo machine github.com > ${HOME}/.netrc \
-            && echo login ${{ secrets.SQBOT_GITHUB_TOKEN }} >> ${HOME}/.netrc \
-            && echo machine api.github.com >> ${HOME}/.netrc \
-            && echo login ${{ secrets.SQBOT_GITHUB_TOKEN}} >> ${HOME}/.netrc
 
       - name: Dry-run
         run: |
           eval export ${{ matrix.env }}
+          echo machine github.com > ${HOME}/.netrc \
+            && echo login ${{ secrets.SQBOT_GITHUB_TOKEN }} >> ${HOME}/.netrc \
+            && echo machine api.github.com >> ${HOME}/.netrc \
+            && echo login ${{ secrets.SQBOT_GITHUB_TOKEN}} >> ${HOME}/.netrc
           make dry-run
+          rm -f ${HOME}/.netrc
 
       - name: Deploy
         if: (github.event_name == 'push' && github.ref == 'refs/heads/master') || github.event_name == 'schedule'
         run: |
           eval export ${{ matrix.env }}
+          echo machine github.com > ${HOME}/.netrc \
+            && echo login ${{ secrets.SQBOT_GITHUB_TOKEN }} >> ${HOME}/.netrc \
+            && echo machine api.github.com >> ${HOME}/.netrc \
+            && echo login ${{ secrets.SQBOT_GITHUB_TOKEN}} >> ${HOME}/.netrc
           make run
+          rm -f ${HOME}/.netrc
