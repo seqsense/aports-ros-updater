@@ -19,7 +19,7 @@ done
 
 aports_slug_upstream=${APORTS_SLUG_UPSTREAM:-seqsense/aports-ros-experimental}
 aports_slug=${APORTS_SLUG:-${aports_slug_upstream}}
-ros_distro=${ROS_DISTRO:-kinetic}
+ros_distro=${ROS_DISTRO:-noetic}
 package_list=$(
   if [ -f package.list.${ros_distro} ]; then
     cat package.list.${ros_distro}
@@ -27,7 +27,7 @@ package_list=$(
   fi
   cat ${PACKAGE_LIST:-package.list}
 )
-ros_python_version=${ROS_PYTHON_VERSION:-2}
+ros_python_version=${ROS_PYTHON_VERSION:-3}
 parallel=${PARALLEL:-4}
 git_email=${GIT_EMAIL:-noreply@seqsense.com}
 

@@ -1,7 +1,7 @@
 UPDATER_NAME            = aports-ros-updater
-ALPINE_VERSION         ?= 3.7
-ROS_DISTRO             ?= kinetic
-ROS_PYTHON_VERSION     ?= 2
+ALPINE_VERSION         ?= 3.11
+ROS_DISTRO             ?= noetic
+ROS_PYTHON_VERSION     ?= 3
 
 .PHONY: build-updater
 build-updater:

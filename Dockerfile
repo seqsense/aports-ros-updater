@@ -1,6 +1,6 @@
-ARG ALPINE_VERSION=3.7
+ARG ALPINE_VERSION=3.11
 FROM alpine:${ALPINE_VERSION}
-ARG ALPINE_VERSION=3.7
+ARG ALPINE_VERSION=3.11
 
 RUN apk add --no-cache python3 py3-pip py3-yaml git curl findutils \
   && pip3 install \
@@ -14,7 +14,7 @@ RUN rosdep init \
 
 ENV HOME="/root"
 
-ARG ROS_DISTRO="kinetic"
+ARG ROS_DISTRO="noetic"
 
 ENV APORTS_SLUG_UPSTREAM="seqsense/aports-ros-experimental"
 ENV APORTS_SULG="seqsense/aports-ros-experimental"
@@ -22,7 +22,7 @@ ENV PACKAGE_LIST="package.list"
 ENV ROS_DISTRO=${ROS_DISTRO}
 ENV PARALLEL="4"
 ENV GIT_EMAIL="noreply@seqsense.com"
-ENV ROS_PYTHON_VERSION="2"
+ENV ROS_PYTHON_VERSION="3"
 
 COPY update-repo.sh /
 COPY package.list* /
