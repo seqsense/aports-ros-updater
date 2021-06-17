@@ -5,7 +5,7 @@ ROS_PYTHON_VERSION     ?= 3
 
 DISTRO_DIR              = $(ROS_DISTRO)$(shell \
   if [ $(ROS_DISTRO) = "noetic" ] && [ $(ALPINE_VERSION) != "3.11" ]; then \
-    echo -n "-v$(ALPINE_VERSION)"; \
+    echo -n ".v$(ALPINE_VERSION)"; \
   fi)
 
 .PHONY: build-updater
