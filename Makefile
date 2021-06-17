@@ -16,10 +16,10 @@ build-updater:
 		.
 
 .PHONY: run
-run: $(ROS_DISTRO)
+run: $(DISTRO_DIR)
 
 .PHONY: dry-run
-dry-run: $(ROS_DISTRO)-dry
+dry-run: $(DISTRO_DIR)-dry
 
 .PHONY: $(DISTRO_DIR)
 $(DISTRO_DIR):
