@@ -9,6 +9,10 @@ while getopts d opt; do
   esac
 done
 
+shift $((OPTIND - 1))
+
+aports_dir=aports/ros/$1
+
 # env vars:
 #   APORTS_SLUG_UPSTREAM
 #   APORTS_SULG
@@ -33,8 +37,6 @@ git_email=${GIT_EMAIL:-noreply@seqsense.com}
 
 git_common_opt="-C aports"
 
-
-aports_dir=aports/ros/${ros_distro}
 
 case ${ros_python_version} in
   "2" ) ;;
