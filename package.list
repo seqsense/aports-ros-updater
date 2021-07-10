@@ -2,6 +2,7 @@ adi_driver
 audio_common
 catkin
 executive_smach_visualization
+grid_map_filters
 grid_map_ros
 ifm3d
 ifm3d_core
