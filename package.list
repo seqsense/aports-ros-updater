@@ -7,6 +7,7 @@ grid_map_rviz_plugin
 ifm3d
 ifm3d_core
 imu_tools
+joint_state_publisher_gui
 joy
 mcl_3dl
 navigation
