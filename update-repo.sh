@@ -121,7 +121,7 @@ else
   pr_user=$(dirname ${aports_slug})
   pr_request_body=$(cat << EOF
 {
-  "title": "${ros_distro}: automatic update on ${date}",
+  "title": "${ros_distro}: automatic update on ${date} (Alpine ${ALPINE_VERSION})",
   "body": "Updates found in rosdistro\\n${files}",
   "head": "${pr_user}:auto-update\/${ros_distro}\/${ALPINE_VERSION}\/${date}",
   "base": "master"
