@@ -16,13 +16,15 @@ ENV HOME="/root"
 
 ARG ROS_DISTRO="noetic"
 
-ENV APORTS_SLUG_UPSTREAM="seqsense/aports-ros-experimental"
-ENV APORTS_SULG="seqsense/aports-ros-experimental"
-ENV PACKAGE_LIST="package.list"
-ENV ROS_DISTRO=${ROS_DISTRO}
-ENV PARALLEL="4"
-ENV GIT_EMAIL="noreply@seqsense.com"
-ENV ROS_PYTHON_VERSION="3"
+ENV \
+  ALPINE_VERSION=${ALPINE_VERSION} \
+  APORTS_SLUG_UPSTREAM="seqsense/aports-ros-experimental" \
+  APORTS_SULG="seqsense/aports-ros-experimental" \
+  GIT_EMAIL="noreply@seqsense.com" \
+  PACKAGE_LIST="package.list" \
+  PARALLEL="4" \
+  ROS_DISTRO=${ROS_DISTRO} \
+  ROS_PYTHON_VERSION="3"
 
 COPY update-repo.sh /
 COPY package.list* /
