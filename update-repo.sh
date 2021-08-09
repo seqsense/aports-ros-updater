@@ -115,13 +115,13 @@ if git ${git_common_opt} diff --cached --exit-code; then
 else
   date=$(date +%Y%m%d-%H%M%S)
   git ${git_common_opt} checkout -b auto-update/${ros_distro}/${ALPINE_VERSION}/${date}
-  git ${git_common_opt} commit -m "${ros_distro}: automatic update on ${date} (Alpine ${ALPINE_VERSION})" \
+  git ${git_common_opt} commit -m "${ros_distro}-${ALPINE_VERSION}: automatic update on ${date}" \
     --author="Alpine ROS aports update bot <${git_email}>"
 
   pr_user=$(dirname ${aports_slug})
   pr_request_body=$(cat << EOF
 {
-  "title": "${ros_distro}: automatic update on ${date} (Alpine ${ALPINE_VERSION})",
+  "title": "${ros_distro}-${ALPINE_VERSION}: automatic update on ${date}",
   "body": "Updates found in rosdistro\\n${files}",
   "head": "${pr_user}:auto-update\/${ros_distro}\/${ALPINE_VERSION}\/${date}",
   "base": "master"
