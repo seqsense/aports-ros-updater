@@ -132,7 +132,7 @@ EOF
   sleep 2
 
   if [ ${dry_run} == 'false' ]; then
-    git ${git_common_opt} push origin auto-update/${ros_distro}/${date}
+    git ${git_common_opt} push origin auto-update/${ros_distro}/${ALPINE_VERSION}/${date}
     sleep 2
     curl https://api.github.com/repos/${aports_slug_upstream}/pulls \
       -d "${pr_request_body}" -XPOST -n
