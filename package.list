@@ -17,6 +17,7 @@ neonavigation_rviz_plugins
 perception
 robot
 ros_base
+ros_control
 ros_core
 ros_tutorials
 rosbridge_suite
