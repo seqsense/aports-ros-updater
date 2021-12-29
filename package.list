@@ -14,6 +14,9 @@ navigation
 neonavigation
 neonavigation_msgs
 neonavigation_rviz_plugins
+octomap
+octomap_msgs
+octomap_ros
 perception
 robot
 ros_base
