@@ -29,6 +29,7 @@ urg_node
 urg_stamped
 usb_cam
 velodyne
+velodyne_pcl
 viz
 xsens_driver
 ypspur_ros
