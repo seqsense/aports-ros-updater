@@ -28,6 +28,7 @@ rosserial
 urg_node
 urg_stamped
 usb_cam
+velodyne
 viz
 xsens_driver
 ypspur_ros
