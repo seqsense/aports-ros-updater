@@ -20,6 +20,7 @@ octomap_msgs
 octomap_ros
 perception
 robot
+robot_localization
 ros_base
 ros_control
 ros_core
