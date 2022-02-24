@@ -2,6 +2,7 @@ adi_driver
 audio_common
 catkin
 executive_smach_visualization
+geographic_msgs
 grid_map_ros
 grid_map_rviz_plugin
 ifm3d
