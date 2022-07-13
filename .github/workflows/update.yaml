@@ -7,7 +7,14 @@ on:
     branches:
       - master
   schedule:
-    - cron:  '0 0 * * 1'  # Every monday UTC 0:00 (JST 9:00)
+    - cron: '0 0 * * 1'  # Every monday UTC 0:00 (JST 9:00)
+  workflow_dispatch:
+    inputs:
+      dry:
+        description: 'Set false to deploy changes'
+        default: true
+        type: boolean
+        required: true
 
 jobs:
   build:
@@ -38,7 +45,10 @@ jobs:
           rm -f ${HOME}/.netrc
 
       - name: Deploy
-        if: (github.event_name == 'push' && github.ref == 'refs/heads/master') || github.event_name == 'schedule'
+        if: |
+          (github.event_name == 'push' && github.ref == 'refs/heads/master') ||
+          github.event_name == 'schedule' ||
+          (github.event_name == 'workflow_dispatch' && !inputs.dry)
         run: |
           eval export ${{ matrix.env }}
           echo machine github.com > ${HOME}/.netrc \
