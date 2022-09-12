@@ -1,4 +1,5 @@
 adi_driver
+aruco_ros
 audio_common
 catkin
 executive_smach_visualization
