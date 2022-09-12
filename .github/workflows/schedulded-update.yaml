@@ -1,0 +1,9 @@
+name: schedulded_update
+on:
+  schedule:
+    - cron: '0 0 * * 1'  # Every monday UTC 0:00 (JST 9:00)
+
+jobs:
+  update:
+    uses: ./.github/workflows/update.impl.yml
+    secrets: inherit
