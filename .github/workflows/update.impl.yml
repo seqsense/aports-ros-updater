@@ -1,20 +1,7 @@
-name: build
+name: update_impl
+
 on:
-  pull_request:
-    branches:
-      - master
-  push:
-    branches:
-      - master
-  schedule:
-    - cron: '0 0 * * 1'  # Every monday UTC 0:00 (JST 9:00)
-  workflow_dispatch:
-    inputs:
-      dry:
-        description: 'Set false to deploy changes'
-        default: true
-        type: boolean
-        required: true
+  workflow_call:
 
 jobs:
   build:
@@ -28,7 +15,7 @@ jobs:
           - ROS_DISTRO=noetic ALPINE_VERSION=3.14 ROS_PYTHON_VERSION=3
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Setup
         run: |
           eval export ${{ matrix.env }}

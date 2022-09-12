@@ -1,0 +1,19 @@
+name: update
+
+on:
+  pull_request:
+  push:
+    branches:
+      - master
+  workflow_dispatch:
+    inputs:
+      dry:
+        description: 'Set false to deploy changes'
+        default: true
+        type: boolean
+        required: true
+
+jobs:
+  update:
+    uses: ./.github/workflows/update.impl.yml
+    secrets: inherit
