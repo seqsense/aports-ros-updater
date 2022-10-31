@@ -136,25 +136,25 @@ else
   done
 
   date=$(date +%Y%m%d-%H%M%S)
-  git ${git_common_opt} checkout -b auto-update/${ros_distro}/${ALPINE_VERSION}/${date}
+  pr_branch="auto-update/${ros_distro}/${ALPINE_VERSION}/${date}"
+  git ${git_common_opt} checkout -b ${pr_branch}
   git ${git_common_opt} commit -m "${ros_distro}-${ALPINE_VERSION}: automatic update on ${date}" \
     --author="Alpine ROS aports update bot <${git_email}>"
 
   pr_user=$(dirname ${aports_slug})
   pr_title="${ros_distro}-${ALPINE_VERSION}: automatic update on ${date}"
-  pr_head="${pr_user}:auto-update/${ros_distro}/${ALPINE_VERSION}/${date}"
 
-  echo ${pr_head}
+  echo ${pr_branch}
   echo ${pr_title}
   cat ${pr_body_file}
   sleep 2
 
   if [ ${dry_run} == 'false' ]; then
-    git ${git_common_opt} push origin auto-update/${ros_distro}/${ALPINE_VERSION}/${date}
+    git ${git_common_opt} push origin ${pr_branch}
     sleep 2
     gh pr create \
       --base master \
-      --head ${pr_head} \
+      --head ${pr_user}:${pr_branch} \
       --title ${pr_title} \
       --body-file ${pr_body_file}
   else
