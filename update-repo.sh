@@ -152,6 +152,7 @@ else
   if [ ${dry_run} == 'false' ]; then
     git ${git_common_opt} push origin ${pr_branch}
     sleep 2
+    cd aports
     export GITHUB_TOKEN=$(sed -n 's/^login \(\S\+\).*/\1/p' ${HOME}/.netrc | head -n1)
     gh pr create \
       --base master \
