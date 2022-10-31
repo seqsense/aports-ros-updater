@@ -156,6 +156,7 @@ else
     export GITHUB_TOKEN=$(sed -n 's/^login \(\S\+\).*/\1/p' ${HOME}/.netrc | head -n1)
     gh pr create \
       --base master \
+      --head ${pr_branch} \
       --title "${pr_title}" \
       --body-file ${pr_body_file}
   else
