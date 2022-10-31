@@ -109,31 +109,30 @@ done \
 
 # Commit changes and create PullRequest
 
-files="$(git ${git_common_opt} diff --name-only)"
-pr_body_file=$(mktemp)
-
 git ${git_common_opt} add ros
 if git ${git_common_opt} diff --cached --exit-code; then
   echo "No update found"
 else
+  files="$(git ${git_common_opt} diff --cached --name-only)"
+  pr_body_file=$(mktemp)
   echo "Updates found in rosdistro" > ${pr_body_file}
 
   for file in ${files}; do
     base_uri=$(
       . aports/${file}
-      echo ${rosinstall} | sed -n 's/^\s*uri: \(\S*\)$/\1/p'
+      echo "${rosinstall}" | sed -n 's/^\s*uri: \(\S*\)$/\1/p' | sed 's/\.git//'
     )
     new_tag=$(
       . aports/${file}
-      echo ${rosinstall} | sed -n 's/^\s*version: \(\S*\)$/\1/p'
+      echo "${rosinstall}" | sed -n 's/^\s*version: \(\S*\)$/\1/p'
     )
     old_tag=$(
       . aports.prev/${file}
-      echo ${rosinstall} | sed -n 's/^\s*version: \(\S*\)$/\1/p'
+      echo "${rosinstall}" | sed -n 's/^\s*version: \(\S*\)$/\1/p'
     )
     diff_uri="${base_uri}/compare/${old_tag}...${new_tag}"
 
-    echo "- [$(dirname ${file})](${diff_uri})" >> ${pr_body_file}
+    echo "- $(dirname ${file}) [diff](${diff_uri})" >> ${pr_body_file}
   done
 
   date=$(date +%Y%m%d-%H%M%S)
