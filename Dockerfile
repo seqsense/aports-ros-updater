@@ -12,6 +12,10 @@ RUN rosdep init \
   && sed -i -e 's|ros/rosdistro/master|alpine-ros/rosdistro/alpine-custom-apk|' \
     /etc/ros/rosdep/sources.list.d/20-default.list
 
+# Install github-cli (<3.13 doesn't have github-cli package)
+RUN apk add github-cli \
+  || apk add --repository https://dl-cdn.alpinelinux.org/alpine/v3.14/community github-cli
+
 ENV HOME="/root"
 
 ARG ROS_DISTRO="noetic"
