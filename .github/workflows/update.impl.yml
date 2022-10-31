@@ -25,9 +25,7 @@ jobs:
         run: |
           eval export ${{ matrix.env }}
           echo machine github.com > ${HOME}/.netrc \
-            && echo login ${{ secrets.SQBOT_GITHUB_TOKEN }} >> ${HOME}/.netrc \
-            && echo machine api.github.com >> ${HOME}/.netrc \
-            && echo login ${{ secrets.SQBOT_GITHUB_TOKEN}} >> ${HOME}/.netrc
+            && echo login ${{ secrets.SQBOT_GITHUB_TOKEN }} >> ${HOME}/.netrc
           make dry-run
           rm -f ${HOME}/.netrc
 
@@ -39,8 +37,6 @@ jobs:
         run: |
           eval export ${{ matrix.env }}
           echo machine github.com > ${HOME}/.netrc \
-            && echo login ${{ secrets.SQBOT_GITHUB_TOKEN }} >> ${HOME}/.netrc \
-            && echo machine api.github.com >> ${HOME}/.netrc \
-            && echo login ${{ secrets.SQBOT_GITHUB_TOKEN}} >> ${HOME}/.netrc
+            && echo login ${{ secrets.SQBOT_GITHUB_TOKEN }} >> ${HOME}/.netrc
           make run
           rm -f ${HOME}/.netrc
