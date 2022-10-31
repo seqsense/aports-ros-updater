@@ -154,8 +154,7 @@ else
     sleep 2
     gh pr create \
       --base master \
-      --head ${pr_user}:${pr_branch} \
-      --title ${pr_title} \
+      --title "${pr_title}" \
       --body-file ${pr_body_file}
   else
     echo 'Skipping PR'
