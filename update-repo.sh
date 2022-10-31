@@ -60,6 +60,9 @@ fi
 
 mkdir -p ${aports_dir}
 
+rm -rf aports.prev
+cp -r aports aports.prev
+
 
 # Store rosdistro cache locally
 
@@ -106,36 +109,54 @@ done \
 
 # Commit changes and create PullRequest
 
-files="$(git ${git_common_opt} diff --name-only \
-  | sed 's/^/- /;s|/|\\/|g;s/$/\\n/g' | tr -d '\n')"
-
 git ${git_common_opt} add ros
 if git ${git_common_opt} diff --cached --exit-code; then
   echo "No update found"
 else
+  files="$(git ${git_common_opt} diff --cached --name-only)"
+  pr_body_file=$(mktemp)
+  echo "Updates found in rosdistro" > ${pr_body_file}
+
+  for file in ${files}; do
+    base_uri=$(
+      . aports/${file}
+      echo "${rosinstall}" | sed -n 's/^\s*uri: \(\S*\)$/\1/p' | sed 's/\.git//'
+    )
+    new_tag=$(
+      . aports/${file}
+      echo "${rosinstall}" | sed -n 's/^\s*version: \(\S*\)$/\1/p'
+    )
+    old_tag=$(
+      . aports.prev/${file}
+      echo "${rosinstall}" | sed -n 's/^\s*version: \(\S*\)$/\1/p'
+    )
+    diff_uri="${base_uri}/compare/${old_tag}...${new_tag}"
+
+    echo "- $(dirname ${file}) [diff](${diff_uri})" >> ${pr_body_file}
+  done
+
   date=$(date +%Y%m%d-%H%M%S)
-  git ${git_common_opt} checkout -b auto-update/${ros_distro}/${ALPINE_VERSION}/${date}
+  pr_branch="auto-update/${ros_distro}/${ALPINE_VERSION}/${date}"
+  git ${git_common_opt} checkout -b ${pr_branch}
   git ${git_common_opt} commit -m "${ros_distro}-${ALPINE_VERSION}: automatic update on ${date}" \
     --author="Alpine ROS aports update bot <${git_email}>"
 
   pr_user=$(dirname ${aports_slug})
-  pr_request_body=$(cat << EOF
-{
-  "title": "${ros_distro}-${ALPINE_VERSION}: automatic update on ${date}",
-  "body": "Updates found in rosdistro\\n${files}",
-  "head": "${pr_user}:auto-update\/${ros_distro}\/${ALPINE_VERSION}\/${date}",
-  "base": "master"
-}
-EOF
-)
-  echo ${pr_request_body}
+  pr_title="${ros_distro}-${ALPINE_VERSION}: automatic update on ${date}"
+
+  echo ${pr_branch}
+  echo ${pr_title}
+  cat ${pr_body_file}
   sleep 2
 
   if [ ${dry_run} == 'false' ]; then
-    git ${git_common_opt} push origin auto-update/${ros_distro}/${ALPINE_VERSION}/${date}
+    git ${git_common_opt} push origin ${pr_branch}
     sleep 2
-    curl https://api.github.com/repos/${aports_slug_upstream}/pulls \
-      -d "${pr_request_body}" -XPOST -n
+    gh pr create \
+      --base master \
+      --head ${pr_user}:${pr_branch} \
+      --title ${pr_title} \
+      --body-file ${pr_body_file}
   else
     echo 'Skipping PR'
   fi
