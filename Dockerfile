@@ -4,10 +4,8 @@ ARG ALPINE_VERSION=3.11
 # The official github-cli is not available for alpine <3.13
 FROM alpine:3.14 as gh-downloader
 
-# WORKDIR gh
-
 RUN apk update \
-  && apk fetch github-cli
+  && apk fetch --no-cache github-cli
 
 # ========================================
 FROM alpine:${ALPINE_VERSION}
