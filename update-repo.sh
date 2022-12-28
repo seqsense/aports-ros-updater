@@ -118,6 +118,10 @@ else
   echo "Updates found in rosdistro" > ${pr_body_file}
 
   for file in ${files}; do
+    if [ ! -f aports.prev/${file} ]; then
+      echo "- $(dirname ${file})" >> ${pr_body_file}
+      continue
+    fi
     base_uri=$(
       . aports/${file}
       echo "${rosinstall}" | sed -n 's/^\s*uri: \(\S*\)$/\1/p' | sed 's/\.git//'
