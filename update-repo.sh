@@ -132,7 +132,11 @@ else
     )
     diff_uri="${base_uri}/compare/${old_tag}...${new_tag}"
 
-    echo "- $(dirname ${file}) [diff](${diff_uri})" >> ${pr_body_file}
+    if [ "${new_tag}" = "${old_tag}" ]; then
+      echo "- $(dirname ${file}) no upstream update" >> ${pr_body_file}
+    else
+      echo "- $(dirname ${file}) [diff](${diff_uri})" >> ${pr_body_file}
+    fi
   done
 
   date=$(date +%Y%m%d-%H%M%S)
