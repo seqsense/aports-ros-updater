@@ -10,10 +10,8 @@ jobs:
       fail-fast: false
       matrix:
         env:
-          - ROS_DISTRO=melodic ALPINE_VERSION=3.8 ROS_PYTHON_VERSION=2
-          - ROS_DISTRO=noetic ALPINE_VERSION=3.11 ROS_PYTHON_VERSION=3
-          - ROS_DISTRO=noetic ALPINE_VERSION=3.14 ROS_PYTHON_VERSION=3
-          - ROS_DISTRO=noetic ALPINE_VERSION=3.17 ROS_PYTHON_VERSION=3
+          - ROS_DISTRO=noetic ALPINE_VERSION=3.14
+          - ROS_DISTRO=noetic ALPINE_VERSION=3.17
     steps:
       - name: Checkout
         uses: actions/checkout@v3

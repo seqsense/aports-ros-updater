@@ -1,15 +1,14 @@
-ARG ALPINE_VERSION=3.11
+ARG ALPINE_VERSION=3.14
 
 # ========================================
-# The official github-cli is not available for alpine <3.13
-FROM alpine:3.14 as gh-downloader
+FROM alpine:${ALPINE_VERSION} as gh-downloader
 
 RUN apk update \
   && apk fetch --no-cache github-cli
 
 # ========================================
 FROM alpine:${ALPINE_VERSION}
-ARG ALPINE_VERSION=3.11
+ARG ALPINE_VERSION=3.14
 
 RUN apk add --no-cache python3 py3-pip py3-yaml git curl findutils \
   && pip3 install \
