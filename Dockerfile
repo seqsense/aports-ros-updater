@@ -34,7 +34,6 @@ ENV \
   APORTS_SLUG_UPSTREAM="seqsense/aports-ros-experimental" \
   APORTS_SULG="seqsense/aports-ros-experimental" \
   GIT_EMAIL="noreply@seqsense.com" \
-  PACKAGE_LIST="package.list" \
   PARALLEL="4" \
   ROS_DISTRO=${ROS_DISTRO} \
   ROS_PYTHON_VERSION="3"
