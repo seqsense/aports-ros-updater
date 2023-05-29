@@ -16,20 +16,22 @@ aports_dir=aports/ros/$1
 # env vars:
 #   APORTS_SLUG_UPSTREAM
 #   APORTS_SULG
-#   PACKAGE_LIST
 #   ROS_DISTRO
 #   PARALLEL
 #   GIT_EMAIL
+#   ROS_DISTRIBUTION_TYPE
 
 aports_slug_upstream=${APORTS_SLUG_UPSTREAM:-seqsense/aports-ros-experimental}
 aports_slug=${APORTS_SLUG:-${aports_slug_upstream}}
 ros_distro=${ROS_DISTRO:-noetic}
+distribution_type=${ROS_DISTRIBUTION_TYPE:-ros1}
+
 package_list=$(
   if [ -f package.list.${ros_distro} ]; then
     cat package.list.${ros_distro}
     exit 0
   fi
-  cat ${PACKAGE_LIST:-package.list}
+  cat package.list.${distribution_type}
 )
 ros_python_version=${ROS_PYTHON_VERSION:-3}
 parallel=${PARALLEL:-4}
@@ -66,23 +68,30 @@ cp -r aports aports.prev
 
 # Store rosdistro cache locally
 
-wget -q \
-  -O /rosdistro-cache.yaml.gz \
-  http://repositories.ros.org/rosdistro_cache/${ros_distro}-cache.yaml.gz
+if [ ${distribution_type} = "ros2" ] ; then
+  wget -q \
+    -O /rosdistro-cache.yaml.gz \
+    http://repo.ros2.org/rosdistro_cache/${ros_distro}-cache.yaml.gz
+else
+  wget -q \
+    -O /rosdistro-cache.yaml.gz \
+    http://repositories.ros.org/rosdistro_cache/${ros_distro}-cache.yaml.gz
+fi
 wget -q \
   -O /distribution.yaml \
   https://raw.githubusercontent.com/ros/rosdistro/master/${ros_distro}/distribution.yaml
 cat << EOF > /index.yaml
 %YAML 1.1
 # ROS index file
-# see REP 143: http://ros.org/reps/rep-0143.html
+# see REP 143: http://ros.org/reps/rep-0143.html and REP 153 https://ros.org/reps/rep-0153.html
 ---
 distributions:
   ${ros_distro}:
     distribution: ["file:///distribution.yaml"]
     distribution_cache: "file:///rosdistro-cache.yaml.gz"
+    distribution_type: ${distribution_type}
 type: index
-version: 3
+version: 4
 EOF
 echo "Using local copy of rosdistro"
 cat /index.yaml
