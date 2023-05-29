@@ -68,7 +68,7 @@ cp -r aports aports.prev
 
 # Store rosdistro cache locally
 
-if [ ${distribution_type} == "ros2" ] ; then
+if [ ${distribution_type} = "ros2" ] ; then
   wget -q \
     -O /rosdistro-cache.yaml.gz \
     http://repo.ros2.org/rosdistro_cache/${ros_distro}-cache.yaml.gz
