@@ -34,7 +34,7 @@ package_list=$(
   if [ ${distribution_type} == "ros2" ]; then
     cat package.list.ros2
   else
-    cat package.list
+    cat package.list.ros1
   fi
 )
 ros_python_version=${ROS_PYTHON_VERSION:-3}
