@@ -31,11 +31,7 @@ package_list=$(
     cat package.list.${ros_distro}
     exit 0
   fi
-  if [ ${distribution_type} == "ros2" ]; then
-    cat package.list.ros2
-  else
-    cat package.list.ros1
-  fi
+  cat package.list.${distribution_type}
 )
 ros_python_version=${ROS_PYTHON_VERSION:-3}
 parallel=${PARALLEL:-4}
