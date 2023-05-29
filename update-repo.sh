@@ -1,6 +1,6 @@
 #!/bin/sh
 
-set -ex
+set -e
 
 dry_run='false'
 while getopts d opt; do
