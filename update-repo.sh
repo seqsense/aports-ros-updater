@@ -1,6 +1,6 @@
 #!/bin/sh
 
-set -e
+set -ex
 
 dry_run='false'
 while getopts d opt; do
@@ -31,7 +31,7 @@ package_list=$(
     cat package.list.${ros_distro}
     exit 0
   fi
-  if [ $distribution_type=ros2 ]; then
+  if [ ${distribution_type} == "ros2" ]; then
     cat package.list.ros2
   else
     cat package.list
@@ -72,7 +72,7 @@ cp -r aports aports.prev
 
 # Store rosdistro cache locally
 
-if [ $distribution_type=ros2 ] ; then
+if [ ${distribution_type} == "ros2" ] ; then
   wget -q \
     -O /rosdistro-cache.yaml.gz \
     http://repo.ros2.org/rosdistro_cache/${ros_distro}-cache.yaml.gz
