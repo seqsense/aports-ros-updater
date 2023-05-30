@@ -3,8 +3,9 @@ ARG ALPINE_VERSION=3.14
 # ========================================
 FROM alpine:${ALPINE_VERSION} as gh-downloader
 
-RUN apk update \
-  && apk fetch --no-cache github-cli
+RUN wget https://github.com/cli/cli/releases/download/v2.29.0/gh_2.29.0_linux_amd64.tar.gz -O - \
+    | tar xzfv - \
+  && mv gh_* gh
 
 # ========================================
 FROM alpine:${ALPINE_VERSION}
@@ -20,10 +21,9 @@ RUN rosdep init \
   && sed -i -e 's|ros/rosdistro/master|alpine-ros/rosdistro/alpine-custom-apk|' \
     /etc/ros/rosdep/sources.list.d/20-default.list
 
-COPY --from=gh-downloader github-cli*.apk .
-
-RUN apk add github-cli*.apk \
-  && rm -f github-cli*.apk
+# TODO: use `apk add --no-cache gh` after dropping Melodic
+COPY --from=gh-downloader /gh/bin/gh /usr/local/bin/
+RUN gh --version
 
 ENV HOME="/root"
 
