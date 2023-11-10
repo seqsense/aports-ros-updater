@@ -25,6 +25,7 @@ ros_base
 ros_control
 ros_core
 ros_tutorials
+rosbag_snapshot
 rosbridge_suite
 rosserial
 urg_node
