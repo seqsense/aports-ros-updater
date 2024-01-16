@@ -13,11 +13,6 @@ shift $((OPTIND - 1))
 
 aports_dir=aports/ros/$1
 
-# TODO: Remove after dropping melodic
-if [ $1 = "melodic.v3.8" ]; then
-  aports_dir=aports/ros/melodic
-fi
-
 # env vars:
 #   APORTS_SLUG_UPSTREAM
 #   APORTS_SULG
