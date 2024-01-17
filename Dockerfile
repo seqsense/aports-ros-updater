@@ -1,4 +1,4 @@
-ARG ALPINE_VERSION=3.14
+ARG ALPINE_VERSION=3.17
 
 # ========================================
 FROM alpine:${ALPINE_VERSION} as gh-downloader
@@ -9,7 +9,7 @@ RUN wget https://github.com/cli/cli/releases/download/v2.29.0/gh_2.29.0_linux_am
 
 # ========================================
 FROM alpine:${ALPINE_VERSION}
-ARG ALPINE_VERSION=3.14
+ARG ALPINE_VERSION=3.17
 
 RUN apk add --no-cache python3 py3-pip py3-yaml git curl findutils \
   && pip3 install \

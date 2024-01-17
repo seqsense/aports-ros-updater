@@ -10,7 +10,6 @@ jobs:
       fail-fast: false
       matrix:
         env:
-          - ROS_DISTRO=noetic ALPINE_VERSION=3.14 ROS_DISTRIBUTION_TYPE=ros1
           - ROS_DISTRO=noetic ALPINE_VERSION=3.17 ROS_DISTRIBUTION_TYPE=ros1
           - ROS_DISTRO=humble ALPINE_VERSION=3.17 ROS_DISTRIBUTION_TYPE=ros2
     steps:
