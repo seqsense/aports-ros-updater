@@ -1,8 +1,7 @@
-adi_driver
 aruco_ros
 audio_common
+behaviortree_cpp
 behaviortree_cpp_v3
-behaviortree_cpp_v4
 catkin
 executive_smach_visualization
 geographic_msgs
@@ -36,5 +35,4 @@ usb_cam
 velodyne
 velodyne_pcl
 viz
-xsens_driver
 ypspur_ros
