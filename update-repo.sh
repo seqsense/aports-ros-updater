@@ -25,6 +25,7 @@ aports_slug_upstream=${APORTS_SLUG_UPSTREAM:-seqsense/aports-ros-experimental}
 aports_slug=${APORTS_SLUG:-${aports_slug_upstream}}
 ros_distro=${ROS_DISTRO:-noetic}
 distribution_type=${ROS_DISTRIBUTION_TYPE:-ros1}
+export ROS_VERSION=${distribution_type#ros}
 
 package_list=$(
   if [ -f package.list.${ros_distro} ]; then
