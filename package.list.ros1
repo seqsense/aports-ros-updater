@@ -1,4 +1,3 @@
-adi_driver
 aruco_ros
 audio_common
 behaviortree_cpp_v3
@@ -36,5 +35,4 @@ usb_cam
 velodyne
 velodyne_pcl
 viz
-xsens_driver
 ypspur_ros
