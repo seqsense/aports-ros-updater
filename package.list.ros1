@@ -1,7 +1,7 @@
 aruco_ros
 audio_common
+behaviortree_cpp
 behaviortree_cpp_v3
-behaviortree_cpp_v4
 catkin
 executive_smach_visualization
 geographic_msgs
