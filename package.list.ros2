@@ -6,3 +6,4 @@ ros_base
 ros_core
 ros_workspace
 vision_msgs
+navigation2
