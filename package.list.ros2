@@ -1,9 +1,9 @@
 ament_package
 desktop
 geographic_msgs
+navigation2
 perception
 ros_base
 ros_core
 ros_workspace
 vision_msgs
-navigation2
