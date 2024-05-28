@@ -119,7 +119,7 @@ done \
 
 # Commit changes and create PullRequest
 
-git ${git_common_opt} add ${aports_dir}
+git ${git_common_opt} add ${ALPINE_VERSION}/ros
 if git ${git_common_opt} diff --cached --exit-code; then
   echo "No update found"
 else
