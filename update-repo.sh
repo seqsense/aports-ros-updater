@@ -11,7 +11,7 @@ done
 
 shift $((OPTIND - 1))
 
-aports_dir=aports/ros/$1
+aports_dir=aports/${ALPINE_VERSION}/ros/${ROS_DISTRO}
 
 # env vars:
 #   APORTS_SLUG_UPSTREAM
