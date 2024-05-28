@@ -11,7 +11,7 @@ done
 
 shift $((OPTIND - 1))
 
-aports_dir=aports/ros/$1
+aports_dir=aports/v${ALPINE_VERSION}/ros/${ROS_DISTRO}
 
 # env vars:
 #   APORTS_SLUG_UPSTREAM
@@ -119,7 +119,7 @@ done \
 
 # Commit changes and create PullRequest
 
-git ${git_common_opt} add ros
+git ${git_common_opt} add v${ALPINE_VERSION}/ros
 if git ${git_common_opt} diff --cached --exit-code; then
   echo "No update found"
 else

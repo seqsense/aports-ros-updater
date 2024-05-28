@@ -4,33 +4,27 @@ ROS_DISTRO             ?= noetic
 ROS_PYTHON_VERSION     ?= 3
 ROS_DISTRIBUTION_TYPE  ?= ros1
 
-DISTRO_DIR              = $(ROS_DISTRO).v$(ALPINE_VERSION)
+IMAGE_TAG               = $(ROS_DISTRO).v$(ALPINE_VERSION)
 
 .PHONY: build-updater
 build-updater:
-	docker build -t $(UPDATER_NAME):$(DISTRO_DIR) \
+	docker build -t $(UPDATER_NAME):$(IMAGE_TAG) \
 		--build-arg ROS_DISTRO=$(ROS_DISTRO) \
 		--build-arg ALPINE_VERSION=$(ALPINE_VERSION) \
 		.
 
 .PHONY: run
-run: $(DISTRO_DIR)
+run:
+	docker run --rm \
+		-v ${HOME}/.netrc:/root/.netrc:ro \
+		-e ROS_PYTHON_VERSION=$(ROS_PYTHON_VERSION) \
+		-e ROS_DISTRIBUTION_TYPE=$(ROS_DISTRIBUTION_TYPE) \
+		$(UPDATER_NAME):$(IMAGE_TAG)
 
 .PHONY: dry-run
-dry-run: $(DISTRO_DIR)-dry
-
-.PHONY: $(DISTRO_DIR)
-$(DISTRO_DIR):
+dry-run:
 	docker run --rm \
 		-v ${HOME}/.netrc:/root/.netrc:ro \
 		-e ROS_PYTHON_VERSION=$(ROS_PYTHON_VERSION) \
 		-e ROS_DISTRIBUTION_TYPE=$(ROS_DISTRIBUTION_TYPE) \
-		$(UPDATER_NAME):$(DISTRO_DIR) $(DISTRO_DIR)
-
-.PHONY: $(DISTRO_DIR)-dry
-$(DISTRO_DIR)-dry:
-	docker run --rm \
-		-v ${HOME}/.netrc:/root/.netrc:ro \
-		-e ROS_PYTHON_VERSION=$(ROS_PYTHON_VERSION) \
-		-e ROS_DISTRIBUTION_TYPE=$(ROS_DISTRIBUTION_TYPE) \
-		$(UPDATER_NAME):$(DISTRO_DIR) -d $(DISTRO_DIR)
+		$(UPDATER_NAME):$(IMAGE_TAG) -d
