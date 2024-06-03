@@ -1,5 +1,5 @@
 UPDATER_NAME            = aports-ros-updater
-ALPINE_VERSION         ?= 3.17
+ALPINE_VERSION         ?= 3.20
 ROS_DISTRO             ?= noetic
 ROS_PYTHON_VERSION     ?= 3
 ROS_DISTRIBUTION_TYPE  ?= ros1

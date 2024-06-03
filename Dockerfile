@@ -11,11 +11,17 @@ RUN wget https://github.com/cli/cli/releases/download/v2.29.0/gh_2.29.0_linux_am
 FROM alpine:${ALPINE_VERSION}
 ARG ALPINE_VERSION=3.17
 
-RUN apk add --no-cache python3 py3-pip py3-yaml git curl findutils \
-  && pip3 install \
+RUN apk add --no-cache \
+    curl \
+    findutils \
+    git \
+    py3-pip \
+    py3-rosdep \
+    py3-rosinstall-generator \
+    py3-yaml \
+    python3 \
+  && pip3 install $([ "${ALPINE_VERSION}" != '3.17' ] && echo -n '--break-system-packages') \
     git+https://github.com/alpine-ros/ros-abuild-docker.git \
-    rosdep \
-    rosinstall_generator
 
 RUN rosdep init \
   && sed -i -e 's|ros/rosdistro/master|alpine-ros/rosdistro/alpine-custom-apk|' \
