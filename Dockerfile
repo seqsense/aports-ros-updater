@@ -21,7 +21,7 @@ RUN apk add --no-cache \
     py3-yaml \
     python3 \
   && pip3 install $([ "${ALPINE_VERSION}" != '3.17' ] && echo -n '--break-system-packages') \
-    git+https://github.com/alpine-ros/ros-abuild-docker.git \
+    git+https://github.com/alpine-ros/ros-abuild-docker.git
 
 RUN rosdep init \
   && sed -i -e 's|ros/rosdistro/master|alpine-ros/rosdistro/alpine-custom-apk|' \
