@@ -23,7 +23,7 @@ RUN apk add --no-cache \
     curl \
     findutils \
     git \
-    gh \
+    github-cli \
     py3-pip \
     py3-rosdep \
     py3-rosinstall-generator \
