@@ -3,13 +3,6 @@
 ARG ALPINE_VERSION=3.17
 
 # ========================================
-FROM alpine:${ALPINE_VERSION} as gh-downloader
-
-RUN wget https://github.com/cli/cli/releases/download/v2.29.0/gh_2.29.0_linux_amd64.tar.gz -O - \
-    | tar xzfv - \
-  && mv gh_* gh
-
-# ========================================
 FROM alpine:${ALPINE_VERSION}
 ARG ALPINE_VERSION=3.17
 
@@ -30,6 +23,7 @@ RUN apk add --no-cache \
     curl \
     findutils \
     git \
+    github-cli \
     py3-pip \
     py3-rosdep \
     py3-rosinstall-generator \
@@ -41,10 +35,6 @@ RUN apk add --no-cache \
 RUN rosdep init \
   && sed -i -e 's|ros/rosdistro/master|alpine-ros/rosdistro/alpine-custom-apk|' \
     /etc/ros/rosdep/sources.list.d/20-default.list
-
-# TODO: use `apk add --no-cache gh` after dropping Melodic
-COPY --from=gh-downloader /gh/bin/gh /usr/local/bin/
-RUN gh --version
 
 ENV HOME="/root"
 
