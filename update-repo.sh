@@ -6,8 +6,14 @@ dry_run='false'
 generate_opts=
 while getopts do: opt; do
   case ${opt} in
-    "d" ) dry_run='true' ; echo '[dry-run]';;
-    "o" ) generate_opts="${OPTARG}" ; echo "[generate-opts ${generate_opts}]";;
+    "d" )
+      dry_run='true'
+      echo '[dry-run]'
+      ;;
+    "o" )
+      generate_opts="${generate_opts} ${OPTARG}"
+      echo "[generate-opts ${generate_opts}]"
+      ;;
   esac
 done
 
