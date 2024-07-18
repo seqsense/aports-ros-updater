@@ -12,7 +12,7 @@ jobs:
         env:
           - ROS_DISTRO=noetic ALPINE_VERSION=3.17 ROS_DISTRIBUTION_TYPE=ros1
           - ROS_DISTRO=humble ALPINE_VERSION=3.17 ROS_DISTRIBUTION_TYPE=ros2
-          - ROS_DISTRO=noetic ALPINE_VERSION=3.20 ROS_DISTRIBUTION_TYPE=ros1
+          - ROS_DISTRO=noetic ALPINE_VERSION=3.20 ROS_DISTRIBUTION_TYPE=ros1 GENERATE_OPTS=--split-dev
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -26,7 +26,7 @@ jobs:
           eval export ${{ matrix.env }}
           echo machine github.com > ${HOME}/.netrc \
             && echo login ${{ secrets.SQBOT_GITHUB_TOKEN }} >> ${HOME}/.netrc
-          make dry-run
+          make dry-run GENERATE_OPTS=${GENERATE_OPTS}
           rm -f ${HOME}/.netrc
 
       - name: Deploy
@@ -38,5 +38,5 @@ jobs:
           eval export ${{ matrix.env }}
           echo machine github.com > ${HOME}/.netrc \
             && echo login ${{ secrets.SQBOT_GITHUB_TOKEN }} >> ${HOME}/.netrc
-          make run
+          make run GENERATE_OPTS=${GENERATE_OPTS}
           rm -f ${HOME}/.netrc

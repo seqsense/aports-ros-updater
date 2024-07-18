@@ -3,9 +3,11 @@
 set -e
 
 dry_run='false'
-while getopts d opt; do
+generate_opts=
+while getopts do: opt; do
   case ${opt} in
     "d" ) dry_run='true' ; echo '[dry-run]';;
+    "o" ) generate_opts="${OPTARG}" ; echo "[generate-opts ${generate_opts}]";;
   esac
 done
 
@@ -114,7 +116,7 @@ rosinstall_generator --deps --wet-only --flat ${package_list} --rosdistro ${ros_
     echo $pkgname ${aports_dir}/${aportname}/APKBUILD >&2
   fi
 done \
-  | generate-rospkg-apkbuild-multi ${ros_distro}
+  | generate-rospkg-apkbuild-multi ${ros_distro} ${generate_opts}
 
 
 # Commit changes and create PullRequest

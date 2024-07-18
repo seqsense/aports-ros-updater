@@ -3,6 +3,7 @@ ALPINE_VERSION         ?= 3.20
 ROS_DISTRO             ?= noetic
 ROS_PYTHON_VERSION     ?= 3
 ROS_DISTRIBUTION_TYPE  ?= ros1
+UPDATE_OPTS            ?=
 
 IMAGE_TAG               = $(ROS_DISTRO).v$(ALPINE_VERSION)
 
@@ -19,7 +20,7 @@ run:
 		-v ${HOME}/.netrc:/root/.netrc:ro \
 		-e ROS_PYTHON_VERSION=$(ROS_PYTHON_VERSION) \
 		-e ROS_DISTRIBUTION_TYPE=$(ROS_DISTRIBUTION_TYPE) \
-		$(UPDATER_NAME):$(IMAGE_TAG)
+		$(UPDATER_NAME):$(IMAGE_TAG) $(UPDATE_OPTS)
 
 .PHONY: dry-run
 dry-run:
