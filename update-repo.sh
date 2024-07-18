@@ -3,21 +3,22 @@
 set -e
 
 dry_run='false'
-generate_opts=
 while getopts do: opt; do
   case ${opt} in
-    "d" )
-      dry_run='true'
-      echo '[dry-run]'
-      ;;
-    "o" )
-      generate_opts="${generate_opts} ${OPTARG}"
-      echo "[generate-opts ${generate_opts}]"
-      ;;
+    "d" ) dry_run='true' ; echo '[dry-run]';;
   esac
 done
 
 shift $((OPTIND - 1))
+
+generate_opts=
+case "${ALPINE_VERSION}" in
+  3.20)
+    generate_opts="${generate_opts} --split-dev"
+    ;;
+  *)
+    ;;
+esac
 
 aports_dir=aports/v${ALPINE_VERSION}/ros/${ROS_DISTRO}
 
