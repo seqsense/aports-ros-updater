@@ -12,7 +12,7 @@ jobs:
         env:
           - ROS_DISTRO=noetic ALPINE_VERSION=3.17 ROS_DISTRIBUTION_TYPE=ros1
           - ROS_DISTRO=humble ALPINE_VERSION=3.17 ROS_DISTRIBUTION_TYPE=ros2
-          - ROS_DISTRO=noetic ALPINE_VERSION=3.20 ROS_DISTRIBUTION_TYPE=ros1 UPDATE_OPTS="-o --split-dev"
+          - ROS_DISTRO=noetic ALPINE_VERSION=3.20 ROS_DISTRIBUTION_TYPE=ros1 UPDATE_OPTS=\"-o --split-dev\"
     steps:
       - name: Checkout
         uses: actions/checkout@v4
