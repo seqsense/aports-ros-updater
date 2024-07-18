@@ -3,7 +3,7 @@
 set -e
 
 dry_run='false'
-while getopts do: opt; do
+while getopts d opt; do
   case ${opt} in
     "d" ) dry_run='true' ; echo '[dry-run]';;
   esac
