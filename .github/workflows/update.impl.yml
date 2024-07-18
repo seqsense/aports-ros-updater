@@ -26,7 +26,7 @@ jobs:
           eval export ${{ matrix.env }}
           echo machine github.com > ${HOME}/.netrc \
             && echo login ${{ secrets.SQBOT_GITHUB_TOKEN }} >> ${HOME}/.netrc
-          make dry-run UPDATE_OPTS=${UPDATE_OPTS}
+          make dry-run UPDATE_OPTS="${UPDATE_OPTS}"
           rm -f ${HOME}/.netrc
 
       - name: Deploy
@@ -38,5 +38,5 @@ jobs:
           eval export ${{ matrix.env }}
           echo machine github.com > ${HOME}/.netrc \
             && echo login ${{ secrets.SQBOT_GITHUB_TOKEN }} >> ${HOME}/.netrc
-          make run UPDATE_OPTS=${UPDATE_OPTS}
+          make run UPDATE_OPTS="${UPDATE_OPTS}"
           rm -f ${HOME}/.netrc
