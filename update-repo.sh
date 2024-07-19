@@ -11,6 +11,15 @@ done
 
 shift $((OPTIND - 1))
 
+generate_opts=
+case "${ALPINE_VERSION}" in
+  3.20)
+    generate_opts="${generate_opts} --split-dev"
+    ;;
+  *)
+    ;;
+esac
+
 aports_dir=aports/v${ALPINE_VERSION}/ros/${ROS_DISTRO}
 
 # env vars:
@@ -114,7 +123,7 @@ rosinstall_generator --deps --wet-only --flat ${package_list} --rosdistro ${ros_
     echo $pkgname ${aports_dir}/${aportname}/APKBUILD >&2
   fi
 done \
-  | generate-rospkg-apkbuild-multi ${ros_distro}
+  | generate-rospkg-apkbuild-multi ${ros_distro} ${generate_opts}
 
 
 # Commit changes and create PullRequest
