@@ -29,6 +29,7 @@ ros_tutorials
 rosbag_snapshot
 rosbridge_suite
 rosserial
+rosserial_test
 urg_node
 urg_stamped
 usb_cam
