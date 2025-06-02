@@ -1,8 +1,8 @@
 UPDATER_NAME            = aports-ros-updater
 ALPINE_VERSION         ?= 3.20
-ROS_DISTRO             ?= noetic
+ROS_DISTRO             ?= jazzy
 ROS_PYTHON_VERSION     ?= 3
-ROS_DISTRIBUTION_TYPE  ?= ros1
+ROS_DISTRIBUTION_TYPE  ?= ros2
 
 IMAGE_TAG               = $(ROS_DISTRO).v$(ALPINE_VERSION)
 
