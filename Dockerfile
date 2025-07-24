@@ -1,10 +1,10 @@
 # syntax=docker/dockerfile:1
 
-ARG ALPINE_VERSION=3.17
+ARG ALPINE_VERSION=3.20
 
 # ========================================
 FROM alpine:${ALPINE_VERSION}
-ARG ALPINE_VERSION=3.17
+ARG ALPINE_VERSION=3.20
 
 RUN echo "http://alpine-ros.seqsense.org/v${ALPINE_VERSION}/backports" >> /etc/apk/repositories
 COPY <<EOF /etc/apk/keys/builder@alpine-ros-experimental.rsa.pub
@@ -29,8 +29,7 @@ RUN apk add --no-cache \
     py3-rosinstall-generator \
     py3-yaml \
     python3 \
-  && pip3 install $([ "${ALPINE_VERSION}" != '3.17' ] && echo -n '--break-system-packages') \
-    git+https://github.com/alpine-ros/ros-abuild-docker.git
+  && pip3 install --break-system-packages git+https://github.com/alpine-ros/ros-abuild-docker.git
 
 RUN rosdep init \
   && sed -i -e 's|ros/rosdistro/master|alpine-ros/rosdistro/alpine-custom-apk|' \
