@@ -11,14 +11,7 @@ done
 
 shift $((OPTIND - 1))
 
-generate_opts=
-case "${ALPINE_VERSION}" in
-  3.20)
-    generate_opts="${generate_opts} --split-dev"
-    ;;
-  *)
-    ;;
-esac
+generate_opts="--split-dev"
 
 aports_dir=aports/v${ALPINE_VERSION}/ros/${ROS_DISTRO}
 
