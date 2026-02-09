@@ -14,7 +14,7 @@ shift $((OPTIND - 1))
 generate_opts=
 case "${ALPINE_VERSION}" in
   3.20 | 3.23)
-    generate_opts="${generate_opts} --split-dev"
+    generate_opts="--split-dev"
     ;;
   *)
     ;;
