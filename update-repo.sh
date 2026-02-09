@@ -13,6 +13,12 @@ shift $((OPTIND - 1))
 
 generate_opts="--split-dev"
 
+cmake_var=""
+case ${ALPINE_VERSION} in
+  "3.23" ) cmake_var="--cmake-var CMAKE_INSTALL_RPATH=/usr/ros/${ROS_DISTRO}/lib";;
+  * ) ;;
+esac
+
 aports_dir=aports/v${ALPINE_VERSION}/ros/${ROS_DISTRO}
 
 # env vars:
@@ -116,7 +122,7 @@ rosinstall_generator --deps --wet-only --flat ${package_list} --rosdistro ${ros_
     echo $pkgname ${aports_dir}/${aportname}/APKBUILD >&2
   fi
 done \
-  | generate-rospkg-apkbuild-multi ${ros_distro} ${generate_opts}
+  | generate-rospkg-apkbuild-multi ${ros_distro} ${generate_opts} ${cmake_var}
 
 
 # Commit changes and create PullRequest
